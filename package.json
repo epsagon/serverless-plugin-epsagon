@@ -66,8 +66,5 @@
     "fs-extra": "^7.0.0",
     "lodash": "^4.17.11",
     "semantic-release-cli": "^4.0.8"
-  },
-  "publishConfig": {
-    "access": "restricted"
   }
 }
