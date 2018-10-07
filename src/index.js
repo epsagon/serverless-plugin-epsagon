@@ -2,10 +2,41 @@ import fs from 'fs-extra';
 import { join } from 'path';
 import { promisify } from 'util';
 import _ from 'lodash';
-import code, { generateWrapperCode, generateWrapperExt } from './handlers';
+import {
+  SUPPORTED_LANGUAGES,
+  generateWrapperCode,
+  generateWrapperExt
+} from './handlers';
 
 const mkdir = promisify(fs.mkdir);
 const writeFile = promisify(fs.writeFile);
+
+const VALIDATE_LIB_BY_LANG = {
+  /**
+   * Validates the python Epsagon's library
+   */
+  python() {
+    this.log('You have some python Lambda functions. Please make sure Epsagon\'s python library' +
+      ' is installed.');
+  },
+  /**
+   * Validates the node Epsagon's library
+   */
+  async node() {
+    let pack;
+    try {
+      pack = await fs.readJson(join(this.prefix, 'package.json'));
+    } catch (err) {
+      this.log('Could not read package.json. Skipping Epsagon library validation - please make sure you have it installed!');
+      return;
+    }
+    const { dependencies = [] } = pack;
+    if (!Object.keys(dependencies).some(dep => dep === 'epsagon')) {
+      throw new Error('Epsagon\'s node library must be installed in order to use this plugin!');
+    }
+  },
+};
+
 
 /**
  * Epsagon's serverless plugin.
@@ -74,8 +105,19 @@ export default class ServerlessEpsagonPlugin {
     }
     this.log('Wrapping your functions with Epsagon...');
     this.funcs = this.findFuncs();
+    await this.validateLib();
     await this.generateHandlers();
     this.assignHandlers();
+  }
+
+  /**
+   * Checks that all of the required epsagon libraries are installed.
+   */
+  async validateLib() {
+    const languages = _.uniq(this.funcs.map(func => func.language));
+    await Promise.all(languages.map(async (lang) => {
+      await VALIDATE_LIB_BY_LANG[lang].bind(this)();
+    }));
   }
 
   /**
@@ -92,7 +134,7 @@ export default class ServerlessEpsagonPlugin {
           return result;
         }
 
-        const language = Object.keys(code).find((lang => runtime.match(lang)));
+        const language = SUPPORTED_LANGUAGES.find((lang => runtime.match(lang)));
         if (!language) {
           this.log(`runtime "${runtime}" is not supported yet, skipping function ${key}`);
           return result;
@@ -136,7 +178,6 @@ export default class ServerlessEpsagonPlugin {
         handlerCode
       );
     }));
-    // TODO: add python __init__.py file
   }
 
   /**

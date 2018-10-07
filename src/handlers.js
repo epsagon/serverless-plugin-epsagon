@@ -39,7 +39,8 @@ const FILE_NAME_BY_LANG_GENERATORS = {
   node: (name => `${name}.js`),
 };
 
-export default WRAPPER_CODE;
+export const SUPPORTED_LANGUAGES = Object.keys(WRAPPER_CODE);
+
 /**
  * generates an epsagon wrapper for a function.
  * @param {Object} func The function to wrap.
