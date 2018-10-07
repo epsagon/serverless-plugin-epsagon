@@ -1,0 +1,73 @@
+{
+  "name": "serverless-plugin-epsagon",
+  "version": "0.0.0-development",
+  "description": "Epsagon's plugin for the serverless framework",
+  "main": "dist/bundle.js",
+  "scripts": {
+    "lint:js": "eslint --max-warnings=0 ./src/ -f table --ext .js --ext .jsx",
+    "lint": "npm run lint:js",
+    "build:dev": "rollup -c",
+    "build": "NODE_ENV=production rollup -c",
+    "clean": "rm -r dist/",
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epsagon/serverless-plugin-epsagon.git"
+  },
+  "keywords": [
+    "serverless",
+    "lambda",
+    "epsagon",
+    "tracing",
+    "distributed-tracing",
+    "aws-lambda",
+    "debugging",
+    "monitoring"
+  ],
+  "author": "Epsagon Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/epsagon/serverless-plugin-espagon/issues"
+  },
+  "homepage": "https://github.com/epsagon/serverless-plugin-espagon#readme",
+  "files": [
+    "dist"
+  ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.1.2",
+    "@commitlint/config-angular": "^7.1.2",
+    "@commitlint/config-conventional": "^7.1.2",
+    "eslint": "^4.18.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-chai-friendly": "^0.4.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-json": "^1.2.1",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-react": "^7.11.0",
+    "husky": "^1.1.0",
+    "rollup": "^0.66.2",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-eslint": "^5.0.0",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-uglify": "^6.0.0",
+    "rollup-plugin-uglify-es": "0.0.1",
+    "semantic-release": "^15.9.17",
+    "sinon": "^4.3.0",
+    "uglify-es": "^3.3.9"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "lodash": "^4.17.11",
+    "semantic-release-cli": "^4.0.8"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}
