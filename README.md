@@ -1,2 +1,2 @@
-# serverless-plugin-epsagon-new
+# serverless-plugin-epsagon
 Epsagon's plugin for the serverless framework
