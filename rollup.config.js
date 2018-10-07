@@ -2,6 +2,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
 import { eslint } from 'rollup-plugin-eslint';
 import uglify from 'rollup-plugin-uglify-es';
+import babel from 'rollup-plugin-babel';
 
 export default {
   input: 'src/index.js',
@@ -16,10 +17,13 @@ export default {
     }),
     commonjs(),
     json(),
-    // (process.env.NODE_ENV === 'production' ? uglify({
-    //   output: {
-    //     beautify: false,
-    //   },
-    // }) : null),
+    babel({
+      exclude: 'node_modules/**',
+    }),
+    (process.env.NODE_ENV === 'production' ? uglify({
+      output: {
+        beautify: false,
+      },
+    }) : null),
   ],
 };
