@@ -69,7 +69,6 @@ export default class ServerlessEpsagonPlugin {
       },
     };
 
-    this.config = this.getConfig();
     this.hooks = {
       'before:package:createDeploymentArtifacts': this.run.bind(this),
       'before:deploy:function:packageFunction': this.run.bind(this),
@@ -95,6 +94,7 @@ export default class ServerlessEpsagonPlugin {
    * Wraps function handlers with Epsagon
    */
   async run() {
+    this.config = this.getConfig();
     if (this.config.disable) {
       this.log('Epsagon disabled - not wrapping functions');
       return;
