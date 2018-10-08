@@ -25,7 +25,7 @@ sls plugin install --name serverless-plugin-epsagon
 
 Or using NPM:
 ```
-npm install serverless-plugin-epsgon
+npm install --save-dev serverless-plugin-epsgon
 ```
 When installing with NPM, add the plugin to your `serverless.yml` file:
 ```yaml
