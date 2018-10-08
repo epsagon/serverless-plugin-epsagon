@@ -129,6 +129,11 @@ export default class ServerlessEpsagonPlugin {
       .reduce((result, pair) => {
         const [key, func] = pair;
         const runtime = func.runtime || this.sls.service.provider.runtime;
+        const { disable } = func.epsagon || {};
+
+        if (disable) {
+          this.log(`Epsagon is disabled for function ${func.key}, skipping.`);
+        }
 
         if (!_.isString(runtime)) {
           return result;
@@ -136,7 +141,7 @@ export default class ServerlessEpsagonPlugin {
 
         const language = SUPPORTED_LANGUAGES.find((lang => runtime.match(lang)));
         if (!language) {
-          this.log(`runtime "${runtime}" is not supported yet, skipping function ${key}`);
+          this.log(`Runtime "${runtime}" is not supported yet, skipping function ${key}`);
           return result;
         }
 
