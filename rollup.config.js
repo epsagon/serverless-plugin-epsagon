@@ -15,11 +15,12 @@ export default {
       throwOnError: true,
       throwOnWarning: true,
     }),
-    commonjs(),
     json(),
     babel({
+      runtimeHelpers: true,
       exclude: 'node_modules/**',
     }),
+    commonjs(),
     (process.env.NODE_ENV === 'production' ? uglify({
       output: {
         beautify: false,
