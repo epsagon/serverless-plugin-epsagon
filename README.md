@@ -71,19 +71,16 @@ handlers in. Do not use this option unless you know what you are doing :)
 ### Function Level Options
 These options are defined at the function level, under the `epsagon` member
 of your function in the `serverless.yml` file. Available options:
+* `disable` - When set to true, disables Epsagon for this specific function.
 * `wrapper` - The wrapper to use to wrap this function. If not specified
 defaults to Epsagon's regular lambda wrapper. available wrappers:
     * for Python:
         * `lambda_wrapper` - regular lambda wrapper
-        * `step_lambda_wrapper` - Used to wrap
-        step functions
+        * `step_lambda_wrapper` - Used to wrap step functions
         * `python_wrapper` - Used to wrap regular
-        Python functions (doesn't have to run on
-        Lambda)
+        Python functions (doesn't have to run on Lambda)
     * for Node.js:
         * `lambdaWrapper` - regular lambda wrapper
-        * `stepLambdaWrapper` - Used to wrap
-        step functions
+        * `stepLambdaWrapper` - Used to wrap step functions
         * `nodeWrapper` - Used to wrap regular
-        Node functions (doesn't have to run on
-        Lambda)
+        Node functions (doesn't have to run on Lambda)
