@@ -16,7 +16,7 @@ const VALIDATE_LIB_BY_LANG = {
    * Validates the python Epsagon's library
    */
   python() {
-    this.log('You have some python Lambda functions. Please make sure Epsagon\'s python library' +
+    this.log('You have some Python Lambda functions. Please make sure Epsagon\'s Python library' +
       ' is installed.');
   },
   /**
@@ -32,7 +32,7 @@ const VALIDATE_LIB_BY_LANG = {
     }
     const { dependencies = [] } = pack;
     if (!Object.keys(dependencies).some(dep => dep === 'epsagon')) {
-      throw new Error('Epsagon\'s node library must be installed in order to use this plugin!');
+      throw new Error('Epsagon\'s Node library must be installed in order to use this plugin!');
     }
   },
 };
