@@ -46,11 +46,6 @@ custom:
 And you are good to go! The plugin will be activated during `sls deploy`,
 `sls package` and `sls invoke local` events automatically.
 
-You can get your epsagons token from the settings page in the dashboard. Follow our
-[documentation](https://docs.epsagon.com/#/traces?id=getting-started-with-traces)
-for more details.
-
-
 ## Additional Commands
 * `sls epsagon clean` will clean up remaining Epsagon files in case some were
 left after deployment (when you break in the middle of a deployment for example)
