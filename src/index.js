@@ -215,7 +215,7 @@ export default class ServerlessEpsagonPlugin {
       _.set(
         this.sls.service.functions,
         `${func.key}.handler`,
-        join(this.config.handlersDirName, `${func.epsagonHandler}.${func.method}`)
+        `${this.config.handlersDirName.replace('\\', '/')}/${func.epsagonHandler}.${func.method}`
       );
     });
   }
