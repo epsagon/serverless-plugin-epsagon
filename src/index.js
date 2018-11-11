@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import { join } from 'path';
 import { promisify } from 'util';
 import _ from 'lodash';
+import glob from 'glob-promise';
 import {
   SUPPORTED_LANGUAGES,
   generateWrapperCode,
@@ -36,6 +37,7 @@ const VALIDATE_LIB_BY_LANG = {
     }
   },
 };
+VALIDATE_LIB_BY_LANG.tsnode = VALIDATE_LIB_BY_LANG.node;
 
 
 /**
@@ -105,6 +107,7 @@ export default class ServerlessEpsagonPlugin {
     }
     this.log('Wrapping your functions with Epsagon...');
     this.funcs = this.findFuncs();
+    await this.handleTS();
     await this.validateLib();
     await this.generateHandlers();
     this.assignHandlers();
@@ -121,6 +124,25 @@ export default class ServerlessEpsagonPlugin {
   }
 
   /**
+   * Changes all the typescript functions correctly
+   */
+  async handleTS() {
+    await Promise.all(this.funcs.map(async (func) => {
+      const handler = _.isString(func.handler) ? func.handler.split('.') : [];
+      const relativePath = handler.slice(0, -1).join('.');
+      const matchingFiles = glob.sync(`${relativePath}.*`);
+      if (
+        matchingFiles.length > 0 &&
+           (matchingFiles[0].endsWith('.ts') ||
+            matchingFiles[0].endsWith('.tsx'))
+      ) {
+        // This is a good enough test for now. lets treat it as TS.
+        func.language = 'tsnode'; // eslint-disable-line no-param-reassign
+      }
+    }));
+  }
+
+  /**
    * Finds all the functions the plugin should wrap with Epsagon.
    * @return {Array} The functions to wrap.
    */
@@ -130,6 +152,8 @@ export default class ServerlessEpsagonPlugin {
         const [key, func] = pair;
         const runtime = func.runtime || this.sls.service.provider.runtime;
         const { disable } = func.epsagon || {};
+        const handler = _.isString(func.handler) ? func.handler.split('.') : [];
+        const relativePath = handler.slice(0, -1).join('.');
 
         if (disable) {
           this.log(`Epsagon is disabled for function ${func.key}, skipping.`);
@@ -145,8 +169,6 @@ export default class ServerlessEpsagonPlugin {
           return result;
         }
 
-        const handler = _.isString(func.handler) ? func.handler.split('.') : [];
-        const relativePath = handler.slice(0, -1).join('.');
         result.push(Object.assign(func, {
           method: _.last(handler),
           key,
