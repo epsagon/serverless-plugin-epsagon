@@ -1,6 +1,7 @@
 const DEFAULT_WRAPPERS = {
   python: 'lambda_wrapper',
   node: 'lambdaWrapper',
+  tsnode: 'lambdaWrapper',
 };
 
 const WRAPPER_CODE = {
@@ -20,7 +21,7 @@ epsagon.init(
 METHOD = epsagon.WRAPPER_TYPE(METHOD_internal)
 `,
   node: `
-const epsagon = require('epsagon')
+const epsagon = require('epsagon');
 const handler = require('../RELATIVE_PATH.js');
 
 epsagon.init({
@@ -28,7 +29,20 @@ epsagon.init({
     appName: 'APP_NAME',
     collectorURL: COLLECTOR_URL,
     metadataOnly: Boolean(METADATA_ONLY)
-})
+});
+
+module.exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
+`,
+  tsnode: `
+const epsagon = require('epsagon');
+const handler = require('../RELATIVE_PATH.ts');
+
+epsagon.init({
+    token: 'TOKEN',
+    appName: 'APP_NAME',
+    collectorURL: COLLECTOR_URL,
+    metadataOnly: Boolean(METADATA_ONLY)
+});
 
 module.exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
 `,
@@ -37,6 +51,7 @@ module.exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
 const FILE_NAME_BY_LANG_GENERATORS = {
   python: (name => `${name}.py`),
   node: (name => `${name}.js`),
+  tsnode: (name => `${name}.ts`),
 };
 
 export const SUPPORTED_LANGUAGES = Object.keys(WRAPPER_CODE);
