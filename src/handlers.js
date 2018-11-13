@@ -79,7 +79,7 @@ export function generateWrapperCode(
     .replace(/APP_NAME/g, epsagonConf.appName)
     .replace(/COLLECTOR_URL/g, epsagonConf.collectorURL ?
       `'${epsagonConf.collectorURL}'` : undefined)
-    .replace(/METADATA_ONLY/g, epsagonConf.metadataOnly === 'true' ? '1' : '0');
+    .replace(/METADATA_ONLY/g, epsagonConf.metadataOnly === true ? '1' : '0');
 }
 
 /**
