@@ -10,12 +10,12 @@
 ### Install Epsagon's Library
 For [Node.js functions](https://www.npmjs.com/package/epsagon):
 ```
-npm install epsagon
+npm install --save-dev epsagon
 ```
 
 For [Python functions](https://pypi.org/project/epsagon):
 ```
-pip install epsagon
+pip install --save-dev epsagon
 ```
 ### Install The Plugin
 Using the Serverless Framework:
