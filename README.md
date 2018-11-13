@@ -15,7 +15,7 @@ npm install --save-dev epsagon
 
 For [Python functions](https://pypi.org/project/epsagon):
 ```
-pip install --save-dev epsagon
+pip install epsagon
 ```
 ### Install The Plugin
 Using the Serverless Framework:
