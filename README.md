@@ -10,7 +10,7 @@
 ### Install Epsagon's Library
 For [Node.js functions](https://www.npmjs.com/package/epsagon):
 ```
-npm install epsagon
+npm install --save-dev epsagon
 ```
 
 For [Python functions](https://pypi.org/project/epsagon):
