@@ -30,7 +30,7 @@ npm install --save-dev serverless-plugin-epsagon
 When installing with NPM, add the plugin to your `serverless.yml` file:
 ```yaml
 plugins:
-  - serveless-plugin-epsagon
+  - serverless-plugin-epsagon
 ```
 For the best results, make sure this is the first plugin specified in your
 plugins list.
