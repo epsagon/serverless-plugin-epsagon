@@ -34,8 +34,8 @@ epsagon.init({
 module.exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
 `,
   tsnode: `
-const epsagon = require('epsagon');
-const handler = require('../RELATIVE_PATH.ts');
+var epsagon = require('epsagon');
+const handler_FUNCTION = require('../RELATIVE_PATH.ts');
 
 epsagon.init({
     token: 'TOKEN',
@@ -44,7 +44,7 @@ epsagon.init({
     metadataOnly: Boolean(METADATA_ONLY)
 });
 
-module.exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
+module.exports.METHOD = epsagon.WRAPPER_TYPE(handler_FUNCTION.METHOD);
 `,
 };
 
@@ -74,6 +74,7 @@ export function generateWrapperCode(
   return WRAPPER_CODE[func.language]
     .replace(/RELATIVE_PATH/g, func.relativePath)
     .replace(/METHOD/g, func.method)
+    .replace(/FUNCTION/g, func.key)
     .replace(/WRAPPER_TYPE/g, wrapper)
     .replace(/TOKEN/g, epsagonConf.token)
     .replace(/APP_NAME/g, epsagonConf.appName)
