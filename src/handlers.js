@@ -35,7 +35,7 @@ module.exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
 `,
   tsnode: `
 var epsagon = require('epsagon');
-const handler_FUNCTION = require('../RELATIVE_PATH.ts');
+var handler_FUNCTION = require('../RELATIVE_PATH.ts');
 
 epsagon.init({
     token: 'TOKEN',
