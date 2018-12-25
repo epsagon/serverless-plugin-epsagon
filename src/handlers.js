@@ -71,8 +71,13 @@ export function generateWrapperCode(
     wrapper = DEFAULT_WRAPPERS[func.language];
   }
 
+  const relativePath = (
+    func.language === 'python' ?
+      func.relativePath.replace('/', '.').replace('\\', '.') :
+      func.relativePath
+  );
   return WRAPPER_CODE[func.language]
-    .replace(/RELATIVE_PATH/g, func.relativePath)
+    .replace(/RELATIVE_PATH/g, relativePath)
     .replace(/METHOD/g, func.method)
     .replace(/WRAPPER_TYPE/g, wrapper)
     .replace(/TOKEN/g, epsagonConf.token)
