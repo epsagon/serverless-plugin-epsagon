@@ -96,3 +96,5 @@ defaults to Epsagon's regular lambda wrapper. available wrappers:
         - serverless-webpack
         - any-other-plugin
       ```
+* Unable to import module `epsagon_handlers` error:
+    * During deployment, the plugin creates `epsagon_handlers/` dir to wrap the function. Please make sure this dir is not excluded somewhere.

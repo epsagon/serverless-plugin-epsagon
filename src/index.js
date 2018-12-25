@@ -156,7 +156,8 @@ export default class ServerlessEpsagonPlugin {
         const relativePath = handler.slice(0, -1).join('.');
 
         if (disable) {
-          this.log(`Epsagon is disabled for function ${func.key}, skipping.`);
+          this.log(`Epsagon is disabled for function ${key}, skipping.`);
+          return result;
         }
 
         if (!_.isString(runtime)) {
