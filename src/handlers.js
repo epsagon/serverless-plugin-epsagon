@@ -73,7 +73,7 @@ export function generateWrapperCode(
 
   const relativePath = (
     func.language === 'python' ?
-      func.relativePath.replace('/', '.').replace('\\', '.') :
+      func.relativePath.replace(/\//g, '.').replace(/\\/g, '.') :
       func.relativePath
   );
   return WRAPPER_CODE[func.language]
