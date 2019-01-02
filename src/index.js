@@ -106,6 +106,7 @@ export default class ServerlessEpsagonPlugin {
       return;
     }
     this.log('Wrapping your functions with Epsagon...');
+    fs.removeSync(join(this.originalServicePath, this.config.handlersDirName));
     this.funcs = this.findFuncs();
     await this.handleTS();
     await this.validateLib();
