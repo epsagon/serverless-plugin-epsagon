@@ -81,6 +81,7 @@ export default class ServerlessEpsagonPlugin {
       'after:invoke:local:invoke': this.cleanup.bind(this),
       'epsagon:clean:init': this.cleanup.bind(this),
     };
+    this.config = this.getConfig();
   }
 
   /**
@@ -96,7 +97,6 @@ export default class ServerlessEpsagonPlugin {
    * Wraps function handlers with Epsagon
    */
   async run() {
-    this.config = this.getConfig();
     if (this.config.disable) {
       this.log('Epsagon disabled - not wrapping functions');
       return;
