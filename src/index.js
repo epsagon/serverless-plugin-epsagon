@@ -81,7 +81,6 @@ export default class ServerlessEpsagonPlugin {
       'after:invoke:local:invoke': this.cleanup.bind(this),
       'epsagon:clean:init': this.cleanup.bind(this),
     };
-    this.config = this.getConfig();
   }
 
   /**
@@ -97,16 +96,16 @@ export default class ServerlessEpsagonPlugin {
    * Wraps function handlers with Epsagon
    */
   async run() {
-    if (this.config.disable) {
+    if (this.config().disable) {
       this.log('Epsagon disabled - not wrapping functions');
       return;
     }
-    if (!this.config.token) {
+    if (!this.config().token) {
       this.log('No epsagon token was supplied - not wrapping functions');
       return;
     }
     this.log('Wrapping your functions with Epsagon...');
-    fs.removeSync(join(this.originalServicePath, this.config.handlersDirName));
+    fs.removeSync(join(this.originalServicePath, this.config().handlersDirName));
     this.funcs = this.findFuncs();
     await this.handleTS();
     await this.validateLib();
@@ -188,7 +187,7 @@ export default class ServerlessEpsagonPlugin {
   async generateHandlers() {
     const handlersFullDirPath = join(
       this.originalServicePath,
-      this.config.handlersDirName
+      this.config().handlersDirName
     );
     try {
       await mkdir(handlersFullDirPath);
@@ -198,7 +197,7 @@ export default class ServerlessEpsagonPlugin {
       }
     }
     await Promise.all(this.funcs.map(async (func) => {
-      const handlerCode = generateWrapperCode(func, this.config);
+      const handlerCode = generateWrapperCode(func, this.config());
       await writeFile(
         join(
           handlersFullDirPath,
@@ -217,7 +216,7 @@ export default class ServerlessEpsagonPlugin {
       _.set(
         this.sls.service.functions,
         `${func.key}.handler`,
-        `${this.config.handlersDirName.replace('\\', '/')}/${func.epsagonHandler}.${func.method}`
+        `${this.config().handlersDirName.replace('\\', '/')}/${func.epsagonHandler}.${func.method}`
       );
     });
   }
@@ -226,7 +225,7 @@ export default class ServerlessEpsagonPlugin {
    * Gets the plugin config.
    * @returns {Object} The config object
    */
-  getConfig() {
+  config() {
     return Object.assign({
       metadataOnly: 'false',
       handlersDirName: 'epsagon_handlers',
@@ -238,6 +237,6 @@ export default class ServerlessEpsagonPlugin {
    */
   cleanup() {
     this.log('Cleaning up Epsagon\'s handlers');
-    fs.removeSync(join(this.originalServicePath, this.config.handlersDirName));
+    fs.removeSync(join(this.originalServicePath, this.config().handlersDirName));
   }
 }
