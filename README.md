@@ -100,3 +100,23 @@ defaults to Epsagon's regular lambda wrapper. available wrappers:
     * Yes! again, just make sure to specify this plugin first in your `serverless.yml`
 * Unable to import module `epsagon_handlers` error:
     * During deployment, the plugin creates `epsagon_handlers/` dir to wrap the function. Please make sure this dir is not excluded somewhere.
+* (Node.js) Cannot find module 'epsagon' error:
+    * `node_modules` must be included in the function package being deployed, make sure that `node_modules` is not excluded somewhere. An example bellow of how your `serverless.yml` could look like:
+    ```
+    ...
+    package:
+    individually: true
+    exclude:
+        - ./** # Excludes everything
+    include: # Include necessary dependencies for your function to work
+        - "node_modules/**"
+        - "epsagon_handlers/**"
+    ...
+    functions:
+        helloWorld:
+            handler: helloWorld.handler
+            package:
+            include:
+                - helloWorld.js # Include only your function
+    ...
+    ```
