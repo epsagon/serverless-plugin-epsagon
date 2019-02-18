@@ -67,7 +67,8 @@
     "rollup-plugin-uglify-es": "0.0.1",
     "semantic-release": "^15.9.17",
     "sinon": "^4.3.0",
-    "uglify-es": "^3.3.9"
+    "uglify-es": "^3.3.9",
+    "just-extend": ">=4.0.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
