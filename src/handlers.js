@@ -31,7 +31,7 @@ epsagon.init({
     metadataOnly: Boolean(METADATA_ONLY)
 });
 
-module.exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
+exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
 `,
   tsnode: `
 var epsagon = require('epsagon');
@@ -44,7 +44,7 @@ epsagon.init({
     metadataOnly: Boolean(METADATA_ONLY)
 });
 
-module.exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
+exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
 `,
 };
 
