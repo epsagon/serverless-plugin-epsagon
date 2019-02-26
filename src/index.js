@@ -213,11 +213,12 @@ export default class ServerlessEpsagonPlugin {
    */
   assignHandlers() {
     this.funcs.forEach((func) => {
-      _.set(
-        this.sls.service.functions,
-        `${func.key}.handler`,
-        `${this.config().handlersDirName.replace('\\', '/')}/${func.epsagonHandler}.${func.method}`
-      );
+      const handlerPath = `${this.config().handlersDirName.replace('\\', '/')}/${func.epsagonHandler}`;
+      const serviceFunc = this.sls.service.functions[func.key];
+      serviceFunc.handler = `${handlerPath}.${func.method}`;
+      if (_.isObject(serviceFunc.package)) {
+        serviceFunc.package.include = [...serviceFunc.package.include, handlerPath];
+      }
     });
   }
 
