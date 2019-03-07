@@ -6,19 +6,23 @@ const DEFAULT_WRAPPERS = {
 
 const WRAPPER_CODE = {
   python: `
-import epsagon
 from RELATIVE_PATH import METHOD as METHOD_internal
+METHOD = METHOD_internal
+try:
+    import epsagon
 
-null = None  # used to ignore arguments
-undefined = None  # used to igone arguments
-epsagon.init(
-    token='TOKEN',
-    app_name='APP_NAME',
-    collector_url=COLLECTOR_URL,
-    metadata_only=bool(METADATA_ONLY)
-)
+    null = None  # used to ignore arguments
+    undefined = None  # used to ignore arguments
+    epsagon.init(
+        token='TOKEN',
+        app_name='APP_NAME',
+        collector_url=COLLECTOR_URL,
+        metadata_only=bool(METADATA_ONLY)
+    )
 
-METHOD = epsagon.WRAPPER_TYPE(METHOD_internal)
+    METHOD = epsagon.WRAPPER_TYPE(METHOD_internal)
+except:
+    pass
 `,
   node: `
 const epsagon = require('epsagon');
