@@ -219,13 +219,13 @@ export default class ServerlessEpsagonPlugin {
       serviceFunc.handler = `${handlerPath}.${func.method}`;
 
       // Adding handler to include (in case it was excluded).
-      if (_.isObject(serviceFunc.package)) {
+      if (_.isObject(serviceFunc.package) && _.isObject(serviceFunc.package.include)) {
         serviceFunc.package.include = [...serviceFunc.package.include, handlerPath];
       }
     });
 
     // Adding the general epsagon_handlers dir to include (in case it was excluded).
-    if (_.isObject(this.sls.service.package)) {
+    if (_.isObject(this.sls.service.package.include)) {
       this.sls.service.package.include = [
         ...this.sls.service.package.include,
         `${this.config().handlersDirName.replace('\\', '/')}/**`,
