@@ -217,7 +217,7 @@ export default class ServerlessEpsagonPlugin {
       const handlerPath = `${this.config().handlersDirName.replace('\\', '/')}/${func.epsagonHandler}`;
       const serviceFunc = this.sls.service.functions[func.key];
       serviceFunc.handler = `${handlerPath}.${func.method}`;
-      
+
       // Adding handler to include (in case it was excluded).
       if (_.isObject(serviceFunc.package)) {
         serviceFunc.package.include = [...serviceFunc.package.include, handlerPath];
