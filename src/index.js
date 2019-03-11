@@ -210,16 +210,27 @@ export default class ServerlessEpsagonPlugin {
 
   /**
    * Replaces the functions original handlers with Epsagon's handlers.
+   * In addition making sure epsagon_handlers are present.
    */
   assignHandlers() {
     this.funcs.forEach((func) => {
       const handlerPath = `${this.config().handlersDirName.replace('\\', '/')}/${func.epsagonHandler}`;
       const serviceFunc = this.sls.service.functions[func.key];
       serviceFunc.handler = `${handlerPath}.${func.method}`;
+      
+      // Adding handler to include (in case it was excluded).
       if (_.isObject(serviceFunc.package)) {
         serviceFunc.package.include = [...serviceFunc.package.include, handlerPath];
       }
     });
+
+    // Adding the general epsagon_handlers dir to include (in case it was excluded).
+    if (_.isObject(this.sls.service.package)) {
+      this.sls.service.package.include = [
+        ...this.sls.service.package.include,
+        `${this.config().handlersDirName.replace('\\', '/')}/**`,
+      ];
+    }
   }
 
   /**
