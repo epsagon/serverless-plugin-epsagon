@@ -120,3 +120,5 @@ defaults to Epsagon's regular lambda wrapper. available wrappers:
                 - helloWorld.js # Include only your function
     ...
     ```
+* Can I use this plugin together with auto-instrumentation?
+    * No. [Auto-instrumentation] (https://epsagon.com/blog/announcing-one-click-serverless-monitoring/) makes the same effect as this plugin, but using both methods at the same time will cause some issues.
