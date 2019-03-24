@@ -22,7 +22,7 @@ try:
 
     METHOD = epsagon.WRAPPER_TYPE(METHOD_internal)
 except:
-    pass
+    print('Error: Epsagon library is not installed!')
 `,
   node: `
 const epsagon = require('epsagon');
