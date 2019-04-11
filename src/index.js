@@ -96,7 +96,7 @@ export default class ServerlessEpsagonPlugin {
    * Wraps function handlers with Epsagon
    */
   async run() {
-    if (this.config().disable) {
+    if (this.config().disable && this.config().disable.toString().toLowerCase() === 'true') {
       this.log('Epsagon disabled - not wrapping functions');
       return;
     }
