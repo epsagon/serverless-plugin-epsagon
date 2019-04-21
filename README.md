@@ -63,7 +63,7 @@ defined here. Available options:
 * `disable` - When set to true, disables Epsagon for the entire service. When
 this option is active wrapping your functions with Epsagon will be skipped.
 * `metadataOnly` - When set to true, will cause Epsagon to report only the
-metadata of the operations to Epsagon's infrastracture instead of the
+metadata of the operations to Epsagon's infrastructure instead of the
 operation's full data.
 * `handlersDirName` - Customize the name of the directory epsagon stores its
 handlers in. Do not use this option unless you know what you are doing :)
