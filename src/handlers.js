@@ -31,7 +31,7 @@ const handler = require('../RELATIVE_PATH.js');
 epsagon.init({
     token: 'TOKEN',
     appName: 'APP_NAME',
-    collectorURL: COLLECTOR_URL,
+    traceCollectorURL: COLLECTOR_URL,
     metadataOnly: Boolean(METADATA_ONLY)
 });
 
@@ -44,7 +44,7 @@ var handler = require('../RELATIVE_PATH');
 epsagon.init({
     token: 'TOKEN',
     appName: 'APP_NAME',
-    collectorURL: COLLECTOR_URL,
+    traceCollectorURL: COLLECTOR_URL,
     metadataOnly: Boolean(METADATA_ONLY)
 });
 
