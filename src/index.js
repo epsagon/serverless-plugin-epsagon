@@ -72,7 +72,7 @@ export default class ServerlessEpsagonPlugin {
     };
 
     this.hooks = {
-      'before:package:createDeploymentArtifacts': this.run.bind(this),
+      'after:package:initialize': this.run.bind(this),
       'before:deploy:function:packageFunction': this.run.bind(this),
       'before:invoke:local:invoke': this.run.bind(this),
       'before:offline:start:init': this.run.bind(this),
