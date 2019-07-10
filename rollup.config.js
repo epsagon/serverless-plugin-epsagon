@@ -11,10 +11,10 @@ export default {
     format: 'cjs',
   },
   plugins: [
-    eslint({
+    (process.env.NODE_ENV === 'production' ? eslint({
       throwOnError: true,
       throwOnWarning: true,
-    }),
+    }) : null),
     json(),
     babel({
       runtimeHelpers: true,
