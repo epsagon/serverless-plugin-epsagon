@@ -9,7 +9,7 @@ import {
   generateWrapperExt
 } from './handlers';
 
-const mkdir = promisify(fs.mkdir);
+const mkdir = fs.mkdirpSync;
 const writeFile = promisify(fs.writeFile);
 
 const VALIDATE_LIB_BY_LANG = {
@@ -67,6 +67,10 @@ export default class ServerlessEpsagonPlugin {
             usage: 'Cleans up extra Epsagon files if necessary',
             lifecycleEvents: ['init'],
           },
+          run: {
+            usage: 'Generates epsagon\'s handlers',
+            lifecycleEvents: ['init'],
+          },
         },
       },
     };
@@ -80,6 +84,7 @@ export default class ServerlessEpsagonPlugin {
       'after:package:createDeploymentArtifacts': this.cleanup.bind(this),
       'after:invoke:local:invoke': this.cleanup.bind(this),
       'epsagon:clean:init': this.cleanup.bind(this),
+      'epsagon:run:init': this.run.bind(this),
     };
   }
 
@@ -190,7 +195,7 @@ export default class ServerlessEpsagonPlugin {
       this.config().handlersDirName
     );
     try {
-      await mkdir(handlersFullDirPath);
+      mkdir(handlersFullDirPath);
     } catch (err) {
       if (err.code !== 'EEXIST') {
         throw err;

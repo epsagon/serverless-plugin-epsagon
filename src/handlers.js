@@ -38,8 +38,8 @@ epsagon.init({
 exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
 `,
   tsnode: `
-var epsagon = require('epsagon');
-var handler = require('../RELATIVE_PATH');
+import epsagon from 'epsagon';
+import * as handler from '../RELATIVE_PATH';
 
 epsagon.init({
     token: 'TOKEN',
@@ -48,7 +48,7 @@ epsagon.init({
     metadataOnly: Boolean(METADATA_ONLY)
 });
 
-exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
+export const METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
 `,
 };
 
