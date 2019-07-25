@@ -67,6 +67,7 @@ metadata of the operations to Epsagon's infrastructure instead of the
 operation's full data.
 * `handlersDirName` - Customize the name of the directory epsagon stores its
 handlers in. Do not use this option unless you know what you are doing :)
+* `packageJsonPath` - Customize the path of your package.json (default ./package.json)
 
 ### Function Level Options
 These options are defined at the function level, under the `epsagon` member
