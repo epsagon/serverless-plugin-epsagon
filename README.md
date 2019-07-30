@@ -97,6 +97,9 @@ defaults to Epsagon's regular lambda wrapper. available wrappers:
         - serverless-webpack
         - any-other-plugin
       ```
+      In order to get the full tracing ability of epsagon, please specify any packages
+      that should be traced (e.g. aws-sdk, pg, mongodb) as external in your webpack
+      config.
 * Is TypeScript supported?
     * Yes! again, just make sure to specify this plugin first in your `serverless.yml`
 * Unable to import module `epsagon_handlers` error:
