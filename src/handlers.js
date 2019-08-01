@@ -26,7 +26,7 @@ except:
 `,
   node: `
 const epsagon = require('epsagon');
-const handler = require('../RELATIVE_PATH.js');
+const epsagonHandler = require('../RELATIVE_PATH.js');
 
 epsagon.init({
     token: 'TOKEN',
@@ -35,11 +35,11 @@ epsagon.init({
     metadataOnly: Boolean(METADATA_ONLY)
 });
 
-exports.METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
+exports.METHOD = epsagon.WRAPPER_TYPE(epsagonHandler.METHOD);
 `,
   tsnode: `
 import epsagon from 'epsagon';
-import * as handler from '../RELATIVE_PATH';
+import * as epsagonHandler from '../RELATIVE_PATH';
 
 epsagon.init({
     token: 'TOKEN',
@@ -48,7 +48,7 @@ epsagon.init({
     metadataOnly: Boolean(METADATA_ONLY)
 });
 
-export const METHOD = epsagon.WRAPPER_TYPE(handler.METHOD);
+export const METHOD = epsagon.WRAPPER_TYPE(epsagonHandler.METHOD);
 `,
 };
 
