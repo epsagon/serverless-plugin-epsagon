@@ -38,7 +38,7 @@ epsagon.init({
 exports.METHOD = epsagon.WRAPPER_TYPE(epsagonHandler.METHOD);
 `,
   tsnode: `
-import epsagon from 'epsagon';
+import * as epsagon from 'epsagon';
 import * as epsagonHandler from '../RELATIVE_PATH';
 
 epsagon.init({
