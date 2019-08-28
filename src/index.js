@@ -26,7 +26,7 @@ const VALIDATE_LIB_BY_LANG = {
   async node() {
     let pack;
     try {
-      pack = await fs.readJson(join(this.prefix, 'package.json'));
+      pack = await fs.readJson(this.config().packageJsonPath || (join(this.prefix, 'package.json')));
     } catch (err) {
       this.log('Could not read package.json. Skipping Epsagon library validation - please make sure you have it installed!');
       return;
