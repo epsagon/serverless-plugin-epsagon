@@ -67,6 +67,7 @@ metadata of the operations to Epsagon's infrastructure instead of the
 operation's full data.
 * `handlersDirName` - Customize the name of the directory epsagon stores its
 handlers in. Do not use this option unless you know what you are doing :)
+* `packageJsonPath` - Customize the path of your package.json (default ./package.json)
 
 ### Function Level Options
 These options are defined at the function level, under the `epsagon` member
@@ -96,6 +97,9 @@ defaults to Epsagon's regular lambda wrapper. available wrappers:
         - serverless-webpack
         - any-other-plugin
       ```
+      In order to get the full tracing ability of epsagon, please specify any packages
+      that should be traced (e.g. aws-sdk, pg, mongodb) as external in your webpack
+      config.
 * Is TypeScript supported?
     * Yes! again, just make sure to specify this plugin first in your `serverless.yml`
 * Unable to import module `epsagon_handlers` error:
