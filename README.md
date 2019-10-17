@@ -126,3 +126,7 @@ defaults to Epsagon's regular lambda wrapper. available wrappers:
     ```
 * Can I use this plugin together with auto-instrumentation?
     * No. [Auto-instrumentation](https://epsagon.com/blog/announcing-one-click-serverless-monitoring/) makes the same effect as this plugin, but using both methods at the same time will cause some issues.
+
+* In my AWS Lambda I'm accessing some a local file. Using the plugin causes an issue.
+    * If you are using a relative path to a local file in your Lambda function, using the plugin might cause some issues.
+    The reason for that is that the plugin changes the location if your Lambda handler.
