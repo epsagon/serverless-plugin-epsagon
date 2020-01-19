@@ -17,6 +17,7 @@ For [Python functions](https://pypi.org/project/epsagon):
 ```
 pip install epsagon
 ```
+If you are using `serverless-python-requirements` plugin, also add `epsagon` to your `requirements.txt` file.
 ### Install The Plugin
 Using the Serverless Framework:
 ```
