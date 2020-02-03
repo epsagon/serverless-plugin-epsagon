@@ -5,8 +5,9 @@ branches:
     - master
 
 node_js:
-  - "6.10"
   - "8.10"
+  - "10.18"
+  - "12.13"
 
 script:
   - npm run lint
@@ -14,7 +15,7 @@ script:
 jobs:
   include:
     - stage: build-and-deploy
-      node_js: "8.10"
+      node_js: "10.18"
       script:
         - npm run build && npm run semantic-release
 
