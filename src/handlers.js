@@ -70,10 +70,10 @@ export function generateWrapperCode(
   func,
   epsagonConf
 ) {
-  let { wrapper } = (func.epsagon || {});
-  if (!wrapper) {
-    wrapper = DEFAULT_WRAPPERS[func.language];
-  }
+  const {
+    wrapper = DEFAULT_WRAPPERS[func.language],
+    appName = epsagonConf.appName,
+  } = (func.epsagon || {});
 
   const relativePath = (
     func.language === 'python' ?
@@ -85,7 +85,7 @@ export function generateWrapperCode(
     .replace(/METHOD/g, func.method)
     .replace(/WRAPPER_TYPE/g, wrapper)
     .replace(/TOKEN/g, epsagonConf.token)
-    .replace(/APP_NAME/g, epsagonConf.appName)
+    .replace(/APP_NAME/g, appName)
     .replace(/COLLECTOR_URL/g, epsagonConf.collectorURL ?
       `'${epsagonConf.collectorURL}'` : undefined)
     .replace(/METADATA_ONLY/g, epsagonConf.metadataOnly === true ? '1' : '0');
