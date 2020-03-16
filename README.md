@@ -74,6 +74,7 @@ handlers in. Do not use this option unless you know what you are doing :)
 These options are defined at the function level, under the `epsagon` member
 of your function in the `serverless.yml` file. Available options:
 * `disable` - When set to true, disables Epsagon for this specific function.
+* `appName` - specific application name to use for the function
 * `wrapper` - The wrapper to use to wrap this function. If not specified
 defaults to Epsagon's regular lambda wrapper. available wrappers:
     * for Python:
