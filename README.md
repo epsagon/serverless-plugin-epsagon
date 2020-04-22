@@ -86,7 +86,9 @@ To cleanup any Epsagon-related files run `sls epsagon clean` and it will clean u
 ### Service Level Options
 These options are defined at the service level, under the `custom.epsagon` section
 of your `serverless.yml` file. Any function level option will **override** options
-defined here. Available options:
+defined here.
+
+Available options:
 
 |Parameter        |Mandatory/Optional|Default Value     |Description                                                                                                                                   |
 |-----------------|------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
