@@ -115,11 +115,12 @@ functions:
 
 Available options:
 
-|Parameter|Mandatory/Optional|Default Value                                                                                       |Description                                 |FIELD5                             |
-|---------|------------------|----------------------------------------------------------------------------------------------------|--------------------------------------------|-----------------------------------|
-|`disable`|Optional          | `false`                                                                                            | When set to true                           | disables Epsagon for the function.|
-|`appName`|Optional          | ``                                                                                                 |Application name that will be set for traces|                                   |
-|`wrapper`|Optional          |`lambda_wrapper/lambdaWrapper` - The wrapper to use to wrap this function. See [wrappers](#wrappers)|                                            |                                   |
+|Parameter|Mandatory/Optional|Default Value                                                                                       |Description                                            |
+|---------|------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+|`disable`|Optional          | `false`                                                                                            | When set to true it disables Epsagon for the function.|
+|`appName`|Optional          | ``                                                                                                 |Application name that will be set for traces           |
+|`wrapper`|Optional          |`lambda_wrapper/lambdaWrapper` - The wrapper to use to wrap this function. See [wrappers](#wrappers)|                                                       |
+
 
 #### wrappers
 * Python functions:
