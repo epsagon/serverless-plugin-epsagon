@@ -88,14 +88,14 @@ These options are defined at the service level, under the `custom.epsagon` secti
 of your `serverless.yml` file. Any function level option will **override** options
 defined here. Available options:
 
-|Parameter|Mandatory/Optional|Default Value                                                                                       |Description                                 |FIELD5                             |
-|---------|------------------|----------------------------------------------------------------------------------------------------|--------------------------------------------|-----------------------------------|
-|`token`  |Mandatory         |`-`                                                                                                 |Epsagon account token. You can find your token in the [Epsagon settings page](https://dashboard.epsagon.com/settings).|                                   |
-|`appName`|Optional          | ``                                                                                                 |Application name that will be set for traces|                                   |
-|`disable`|Optional          | `false`                                                                                            | When set to true                           | disables Epsagon for the entire service. When this option is active wrapping your functions with Epsagon will be skipped.|
-|`metadataOnly`|Optional          |`false`                                                                                             |Whether to send only the metadata (`true`) or also the payloads (`false`)|                                   |
-|`handlersDirName`|Optional          |`epsagon_handlers`                                                                                  |Customize the name of the directory Epsagon stores its handlers in. Do not use this option unless you know what you are doing.|                                   |
-|`packageJsonPath`|Optional          |`./package.json`                                                                                    |Customize the path of your `package.json`   |                                   |
+|Parameter        |Mandatory/Optional|Default Value     |Description                                                                                                                                   |
+|-----------------|------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+|`token`          |Mandatory         |`-`               |Epsagon account token. You can find your token in the [Epsagon settings page](https://dashboard.epsagon.com/settings).                        |
+|`appName`        |Optional          | ``               |Application name that will be set for traces                                                                                                  |
+|`disable`        |Optional          | `false`          | When set to true it disables Epsagon for the entire service. When this option is active wrapping your functions with Epsagon will be skipped.|
+|`metadataOnly`   |Optional          |`false`           |Whether to send only the metadata (`true`) or also the payloads (`false`)                                                                     |
+|`handlersDirName`|Optional          |`epsagon_handlers`|Customize the name of the directory Epsagon stores its handlers in. Do not use this option unless you know what you are doing.                |
+|`packageJsonPath`|Optional          |`./package.json`  |Customize the path of your `package.json`                                                                                                     |
 
 ### Function Level Options
 These options are defined at the function level, under the `epsagon` member of your function in the `serverless.yml` file.
