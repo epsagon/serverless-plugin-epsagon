@@ -4,11 +4,21 @@ const DEFAULT_WRAPPERS = {
   tsnode: 'lambdaWrapper',
 };
 
-const WRAPPER_CODE = ({relativePath, method, wrapper, token, appName, collectorUrl, metadataOnly, urlsToIgnore, ignoredKeys}) => {
+const WRAPPER_CODE = ({
+  relativePath,
+  method,
+  wrapper,
+  token,
+  appName,
+  collectorUrl,
+  metadataOnly,
+  urlsToIgnore,
+  ignoredKeys,
+}) => {
   const commonNode = `
 
-${urlsToIgnore ? `process.env.EPSAGON_URLS_TO_IGNORE = process.env.EPSAGON_URLS_TO_IGNORE || '${urlsToIgnore}';` : ""} 
-${ignoredKeys ? `process.env.EPSAGON_IGNORED_KEYS = process.env.EPSAGON_IGNORED_KEYS || '${ignoredKeys}';` : ""} 
+${urlsToIgnore ? `process.env.EPSAGON_URLS_TO_IGNORE = process.env.EPSAGON_URLS_TO_IGNORE || '${urlsToIgnore}';` : ''} 
+${ignoredKeys ? `process.env.EPSAGON_IGNORED_KEYS = process.env.EPSAGON_IGNORED_KEYS || '${ignoredKeys}';` : ''} 
 
 epsagon.init({
     token: '${token}',
@@ -25,8 +35,8 @@ try:
     import epsagon
     import os
         
-    ${urlsToIgnore ? `os.environ['EPSAGON_URLS_TO_IGNORE'] = '${urlsToIgnore}' if 'EPSAGON_URLS_TO_IGNORE' not in os.environ else os.environ['EPSAGON_URLS_TO_IGNORE']` : ""}
-    ${ignoredKeys ? `os.environ['EPSAGON_IGNORED_KEYS'] = '${ignoredKeys}' if 'EPSAGON_IGNORED_KEYS' not in os.environ else os.environ['EPSAGON_IGNORED_KEYS']` : ""}
+    ${urlsToIgnore ? `os.environ['EPSAGON_URLS_TO_IGNORE'] = '${urlsToIgnore}' if 'EPSAGON_URLS_TO_IGNORE' not in os.environ else os.environ['EPSAGON_URLS_TO_IGNORE']` : ''}
+    ${ignoredKeys ? `os.environ['EPSAGON_IGNORED_KEYS'] = '${ignoredKeys}' if 'EPSAGON_IGNORED_KEYS' not in os.environ else os.environ['EPSAGON_IGNORED_KEYS']` : ''}
     
     null = None  # used to ignore arguments
     undefined = None  # used to ignore arguments
@@ -83,7 +93,9 @@ export function generateWrapperCode(
   func,
   epsagonConf
 ) {
-  const { collectorURL, token, appName, metadataOnly, urlsToIgnore, ignoredKeys } = epsagonConf;
+  const {
+    collectorURL, token, appName, metadataOnly, urlsToIgnore, ignoredKeys,
+  } = epsagonConf;
   const { wrapper = DEFAULT_WRAPPERS[func.language] } = (func.epsagon || {});
 
   const relativePath = (
@@ -100,7 +112,7 @@ export function generateWrapperCode(
     collectorUrl: collectorURL ? `'${collectorURL}'` : undefined,
     metadataOnly: metadataOnly === true ? '1' : '0',
     urlsToIgnore,
-    ignoredKeys
+    ignoredKeys,
   });
 }
 
