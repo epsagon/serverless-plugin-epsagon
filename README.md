@@ -98,7 +98,9 @@ Available options:
 |`metadataOnly`   |Optional          |`false`           |Whether to send only the metadata (`true`) or also the payloads (`false`)                                                                     |
 |`handlersDirName`|Optional          |`epsagon_handlers`|Customize the name of the directory Epsagon stores its handlers in. Do not use this option unless you know what you are doing.                |
 |`packageJsonPath`|Optional          |`./package.json`  |Customize the path of your `package.json`                                                                                                     |
-|`collectorURL`|Optional          |`-`  |The address of the trace collector to send trace to                                                                                                     |
+|`collectorURL`   |Optional          |`-`               |The address of the trace collector to send trace to                                                                                           |
+|`ignoredKeys`    |Optional          |`-`               |May contain strings (will perform a loose match, so that First Name also matches first_name)                                                  |
+|`urlsToIgnore`   |Optional          |`-`               |Ignore HTTP calls to specific domains                                                                                                         |
 
 ### Function Level Options
 These options are defined at the function level, under the `epsagon` member of your function in the `serverless.yml` file.

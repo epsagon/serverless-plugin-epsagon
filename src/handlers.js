@@ -4,52 +4,75 @@ const DEFAULT_WRAPPERS = {
   tsnode: 'lambdaWrapper',
 };
 
-const WRAPPER_CODE = {
-  python: `
-from RELATIVE_PATH import METHOD as METHOD_internal
-METHOD = METHOD_internal
+const WRAPPER_CODE = ({
+  relativePath,
+  method,
+  wrapper,
+  token,
+  appName,
+  collectorUrl,
+  metadataOnly,
+  urlsToIgnore,
+  ignoredKeys,
+}) => {
+  const commonNode = `
+
+${urlsToIgnore ? `process.env.EPSAGON_URLS_TO_IGNORE = process.env.EPSAGON_URLS_TO_IGNORE || '${urlsToIgnore}';` : ''} 
+${ignoredKeys ? `process.env.EPSAGON_IGNORED_KEYS = process.env.EPSAGON_IGNORED_KEYS || '${ignoredKeys}';` : ''} 
+
+epsagon.init({
+    token: '${token}',
+    appName: '${appName}',
+    traceCollectorURL: ${collectorUrl},
+    metadataOnly: Boolean(${metadataOnly})
+});`;
+
+  return ({
+    python: `
+from ${relativePath} import ${method} as ${method}_internal
+${method} = ${method}_internal
 try:
     import epsagon
-
+    import os
+        
+    ${urlsToIgnore ? `os.environ['EPSAGON_URLS_TO_IGNORE'] = '${urlsToIgnore}' if 'EPSAGON_URLS_TO_IGNORE' not in os.environ else os.environ['EPSAGON_URLS_TO_IGNORE']` : ''}
+    ${ignoredKeys ? `os.environ['EPSAGON_IGNORED_KEYS'] = '${ignoredKeys}' if 'EPSAGON_IGNORED_KEYS' not in os.environ else os.environ['EPSAGON_IGNORED_KEYS']` : ''}
+    
     null = None  # used to ignore arguments
     undefined = None  # used to ignore arguments
     epsagon.init(
-        token='TOKEN',
-        app_name='APP_NAME',
-        collector_url=COLLECTOR_URL,
-        metadata_only=bool(METADATA_ONLY)
+        token='${token}',
+        app_name='${appName}',
+        collector_url=${collectorUrl},
+        metadata_only=bool(${metadataOnly})
     )
 
-    METHOD = epsagon.WRAPPER_TYPE(METHOD_internal)
+    ${method} = epsagon.${wrapper}(${method}_internal)
 except:
     print('Warning: Epsagon package not found. The function will not be monitored')
 `,
-  node: `
+    node: `
 const epsagon = require('epsagon');
-const epsagonHandler = require('../RELATIVE_PATH.js');
+const epsagonHandler = require('../${relativePath}.js');
 
 epsagon.init({
-    token: 'TOKEN',
-    appName: 'APP_NAME',
-    traceCollectorURL: COLLECTOR_URL,
-    metadataOnly: Boolean(METADATA_ONLY)
+    token: '${token}',
+    appName: '${appName}',
+    traceCollectorURL: ${collectorUrl},
+    metadataOnly: Boolean(${metadataOnly})
 });
 
-exports.METHOD = epsagon.WRAPPER_TYPE(epsagonHandler.METHOD);
+exports.${method} = epsagon.${wrapper}(epsagonHandler.${method});
 `,
-  tsnode: `
+    tsnode: `
 import * as epsagon from 'epsagon';
-import * as epsagonHandler from '../RELATIVE_PATH';
+import * as epsagonHandler from '../${relativePath}';
 
-epsagon.init({
-    token: 'TOKEN',
-    appName: 'APP_NAME',
-    traceCollectorURL: COLLECTOR_URL,
-    metadataOnly: Boolean(METADATA_ONLY)
-});
+${commonNode}
 
-export const METHOD = epsagon.WRAPPER_TYPE(epsagonHandler.METHOD);
+export const ${method} = epsagon.${wrapper}(epsagonHandler.${method});
 `,
+  });
 };
 
 const FILE_NAME_BY_LANG_GENERATORS = {
@@ -71,24 +94,26 @@ export function generateWrapperCode(
   epsagonConf
 ) {
   const {
-    wrapper = DEFAULT_WRAPPERS[func.language],
-    appName = epsagonConf.appName,
-  } = (func.epsagon || {});
+    collectorURL, token, appName, metadataOnly, urlsToIgnore, ignoredKeys,
+  } = epsagonConf;
+  const { wrapper = DEFAULT_WRAPPERS[func.language] } = (func.epsagon || {});
 
   const relativePath = (
     func.language === 'python' ?
       func.relativePath.replace(/\//g, '.').replace(/\\/g, '.') :
       func.relativePath
   );
-  return WRAPPER_CODE[func.language]
-    .replace(/RELATIVE_PATH/g, relativePath)
-    .replace(/METHOD/g, func.method)
-    .replace(/WRAPPER_TYPE/g, wrapper)
-    .replace(/TOKEN/g, epsagonConf.token)
-    .replace(/APP_NAME/g, appName)
-    .replace(/COLLECTOR_URL/g, epsagonConf.collectorURL ?
-      `'${epsagonConf.collectorURL}'` : undefined)
-    .replace(/METADATA_ONLY/g, epsagonConf.metadataOnly === true ? '1' : '0');
+  return WRAPPER_CODE[func.language]({
+    relativePath,
+    method: func.method,
+    wrapper,
+    token,
+    appName,
+    collectorUrl: collectorURL ? `'${collectorURL}'` : undefined,
+    metadataOnly: metadataOnly === true ? '1' : '0',
+    urlsToIgnore,
+    ignoredKeys,
+  });
 }
 
 /**
