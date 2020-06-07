@@ -7,8 +7,8 @@ const DEFAULT_WRAPPERS = {
 const WRAPPER_CODE = ({relativePath, method, wrapper, token, appName, collectorUrl, metadataOnly, urlsToIgnore, ignoredKeys}) => {
   const commonNode = `
 
-process.env.EPSAGON_URLS_TO_IGNORE = process.env.EPSAGON_URLS_TO_IGNORE || '${urlsToIgnore}'; 
-process.env.EPSAGON_IGNORED_KEYS = process.env.EPSAGON_IGNORED_KEYS || '${ignoredKeys}'; 
+${urlsToIgnore ? `process.env.EPSAGON_URLS_TO_IGNORE = process.env.EPSAGON_URLS_TO_IGNORE || '${urlsToIgnore}';` : ""} 
+${ignoredKeys ? `process.env.EPSAGON_IGNORED_KEYS = process.env.EPSAGON_IGNORED_KEYS || '${ignoredKeys}';` : ""} 
 
 epsagon.init({
     token: '${token}',
@@ -25,8 +25,8 @@ try:
     import epsagon
     import os
         
-    os.environ['EPSAGON_URLS_TO_IGNORE'] = '${urlsToIgnore}' if 'EPSAGON_URLS_TO_IGNORE' not in os.environ else os.environ['EPSAGON_URLS_TO_IGNORE']
-    os.environ['EPSAGON_IGNORED_KEYS'] = '${ignoredKeys}' if 'EPSAGON_IGNORED_KEYS' not in os.environ else os.environ['EPSAGON_IGNORED_KEYS']
+    ${urlsToIgnore ? `os.environ['EPSAGON_URLS_TO_IGNORE'] = '${urlsToIgnore}' if 'EPSAGON_URLS_TO_IGNORE' not in os.environ else os.environ['EPSAGON_URLS_TO_IGNORE']` : ""}
+    ${ignoredKeys ? `os.environ['EPSAGON_IGNORED_KEYS'] = '${ignoredKeys}' if 'EPSAGON_IGNORED_KEYS' not in os.environ else os.environ['EPSAGON_IGNORED_KEYS']` : ""}
     
     null = None  # used to ignore arguments
     undefined = None  # used to ignore arguments
