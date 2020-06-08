@@ -81,7 +81,7 @@ const FILE_NAME_BY_LANG_GENERATORS = {
   tsnode: (name => `${name}.ts`),
 };
 
-export const SUPPORTED_LANGUAGES = Object.keys(WRAPPER_CODE);
+export const SUPPORTED_LANGUAGES = ['python', 'node'];
 
 /**
  * generates an epsagon wrapper for a function.
@@ -103,7 +103,7 @@ export function generateWrapperCode(
       func.relativePath.replace(/\//g, '.').replace(/\\/g, '.') :
       func.relativePath
   );
-  return WRAPPER_CODE[func.language]({
+  return WRAPPER_CODE({
     relativePath,
     method: func.method,
     wrapper,
@@ -113,7 +113,7 @@ export function generateWrapperCode(
     metadataOnly: metadataOnly === true ? '1' : '0',
     urlsToIgnore,
     ignoredKeys,
-  });
+  })[func.language];
 }
 
 /**
