@@ -73,7 +73,7 @@ custom:
     appName: app-name-stage
 ```
 
-You can find your token in the [Epsagon settings page](https://dashboard.epsagon.com/settings).
+You can find your token in the [Epsagon settings page](https://app.epsagon.com/settings).
 
 
 The plugin will be activated automatically during `sls deploy`,
@@ -92,7 +92,7 @@ Available options:
 
 |Parameter        |Mandatory/Optional|Default Value     |Description                                                                                                                                   |
 |-----------------|------------------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
-|`token`          |Mandatory         |`-`               |Epsagon account token. You can find your token in the [Epsagon settings page](https://dashboard.epsagon.com/settings).                        |
+|`token`          |Mandatory         |`-`               |Epsagon account token. You can find your token in the [Epsagon settings page](https://app.epsagon.com/settings).                        |
 |`appName`        |Optional          | ``               |Application name that will be set for traces                                                                                                  |
 |`disable`        |Optional          | `false`          | When set to true it disables Epsagon for the entire service. When this option is active wrapping your functions with Epsagon will be skipped.|
 |`metadataOnly`   |Optional          |`false`           |Whether to send only the metadata (`true`) or also the payloads (`false`)                                                                     |
