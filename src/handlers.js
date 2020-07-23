@@ -57,13 +57,7 @@ except:
 const epsagon = require('epsagon');
 const epsagonHandler = require('../${relativePath}.js');
 
-epsagon.init({
-    token: '${token}',
-    appName: '${appName}',
-    traceCollectorURL: ${collectorUrl},
-    metadataOnly: Boolean(${metadataOnly}),
-    labels: ${labels}
-});
+${commonNode}
 
 exports.${method} = epsagon.${wrapper}(epsagonHandler.${method});
 `,
