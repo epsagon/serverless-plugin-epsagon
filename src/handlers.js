@@ -117,7 +117,7 @@ export function generateWrapperCode(
     metadataOnly: metadataOnly === true ? '1' : '0',
     urlsToIgnore,
     ignoredKeys,
-    labels: labels ? labels : [],
+    labels: labels || [],
   })[func.language];
 }
 
