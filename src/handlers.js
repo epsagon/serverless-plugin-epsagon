@@ -14,6 +14,7 @@ const WRAPPER_CODE = ({
   metadataOnly,
   urlsToIgnore,
   ignoredKeys,
+  labels,
 }) => {
   const commonNode = `
 
@@ -24,7 +25,8 @@ epsagon.init({
     token: '${token}',
     appName: '${appName}',
     traceCollectorURL: ${collectorUrl},
-    metadataOnly: Boolean(${metadataOnly})
+    metadataOnly: Boolean(${metadataOnly}),
+    labels: ${labels}
 });`;
 
   return ({
@@ -44,7 +46,8 @@ try:
         token='${token}',
         app_name='${appName}',
         collector_url=${collectorUrl},
-        metadata_only=bool(${metadataOnly})
+        metadata_only=bool(${metadataOnly}),
+        labels: ${labels}
     )
 
     ${method} = epsagon.${wrapper}(${method}_internal)
@@ -59,7 +62,8 @@ epsagon.init({
     token: '${token}',
     appName: '${appName}',
     traceCollectorURL: ${collectorUrl},
-    metadataOnly: Boolean(${metadataOnly})
+    metadataOnly: Boolean(${metadataOnly}),
+    labels: ${labels}
 });
 
 exports.${method} = epsagon.${wrapper}(epsagonHandler.${method});
@@ -94,7 +98,7 @@ export function generateWrapperCode(
   epsagonConf
 ) {
   const {
-    collectorURL, token, appName, metadataOnly, urlsToIgnore, ignoredKeys,
+    collectorURL, token, appName, metadataOnly, urlsToIgnore, ignoredKeys, labels,
   } = epsagonConf;
   const { wrapper = DEFAULT_WRAPPERS[func.language] } = (func.epsagon || {});
 
@@ -113,6 +117,7 @@ export function generateWrapperCode(
     metadataOnly: metadataOnly === true ? '1' : '0',
     urlsToIgnore,
     ignoredKeys,
+    labels: labels ? labels : [],
   })[func.language];
 }
 
