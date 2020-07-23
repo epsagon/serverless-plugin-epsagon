@@ -101,6 +101,7 @@ Available options:
 |`collectorURL`   |Optional          |`-`               |The address of the trace collector to send trace to                                                                                           |
 |`ignoredKeys`    |Optional          |`-`               |May contain strings (will perform a loose match, so that First Name also matches first_name)                                                  |
 |`urlsToIgnore`   |Optional          |`-`               |Ignore HTTP calls to specific domains                                                                                                         |
+|`labels`         |Optional          |`[]`              |Global labels applied to all traces                                                                                                           |
 
 ### Function Level Options
 These options are defined at the function level, under the `epsagon` member of your function in the `serverless.yml` file.
