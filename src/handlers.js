@@ -26,7 +26,7 @@ epsagon.init({
     appName: '${appName}',
     traceCollectorURL: ${collectorUrl},
     metadataOnly: Boolean(${metadataOnly}),
-    labels: ${labels}
+    labels: ${labels.length ? JSON.stringify(labels) : labels}
 });`;
 
   return ({
