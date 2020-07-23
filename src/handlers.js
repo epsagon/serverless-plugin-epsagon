@@ -46,8 +46,7 @@ try:
         token='${token}',
         app_name='${appName}',
         collector_url=${collectorUrl},
-        metadata_only=bool(${metadataOnly}),
-        labels: ${labels}
+        metadata_only=bool(${metadataOnly})
     )
 
     ${method} = epsagon.${wrapper}(${method}_internal)
