@@ -14,6 +14,7 @@ const WRAPPER_CODE = ({
   metadataOnly,
   urlsToIgnore,
   ignoredKeys,
+  labels,
 }) => {
   const commonNode = `
 
@@ -24,7 +25,8 @@ epsagon.init({
     token: '${token}',
     appName: '${appName}',
     traceCollectorURL: ${collectorUrl},
-    metadataOnly: Boolean(${metadataOnly})
+    metadataOnly: Boolean(${metadataOnly}),
+    labels: ${labels}
 });`;
 
   return ({
@@ -55,12 +57,7 @@ except:
 const epsagon = require('epsagon');
 const epsagonHandler = require('../${relativePath}.js');
 
-epsagon.init({
-    token: '${token}',
-    appName: '${appName}',
-    traceCollectorURL: ${collectorUrl},
-    metadataOnly: Boolean(${metadataOnly})
-});
+${commonNode}
 
 exports.${method} = epsagon.${wrapper}(epsagonHandler.${method});
 `,
@@ -94,7 +91,7 @@ export function generateWrapperCode(
   epsagonConf
 ) {
   const {
-    collectorURL, token, appName, metadataOnly, urlsToIgnore, ignoredKeys,
+    collectorURL, token, appName, metadataOnly, urlsToIgnore, ignoredKeys, labels,
   } = epsagonConf;
   const { wrapper = DEFAULT_WRAPPERS[func.language] } = (func.epsagon || {});
 
@@ -113,6 +110,7 @@ export function generateWrapperCode(
     metadataOnly: metadataOnly === true ? '1' : '0',
     urlsToIgnore,
     ignoredKeys,
+    labels: labels || [],
   })[func.language];
 }
 
