@@ -26,7 +26,7 @@ epsagon.init({
     appName: '${appName}',
     traceCollectorURL: ${collectorUrl},
     metadataOnly: Boolean(${metadataOnly}),
-    labels: ${labels.length ? JSON.stringify(labels) : labels}
+    labels: ${labels || '[]'}
 });`;
 
   return ({
@@ -100,6 +100,8 @@ export function generateWrapperCode(
       func.relativePath.replace(/\//g, '.').replace(/\\/g, '.') :
       func.relativePath
   );
+  const labelsFormatted = typeof labels === 'object' ? JSON.stringify(labels) : labels;
+
   return WRAPPER_CODE({
     relativePath,
     method: func.method,
@@ -110,7 +112,7 @@ export function generateWrapperCode(
     metadataOnly: metadataOnly === true ? '1' : '0',
     urlsToIgnore,
     ignoredKeys,
-    labels: labels || [],
+    labels: labelsFormatted,
   })[func.language];
 }
 
