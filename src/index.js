@@ -17,8 +17,7 @@ const VALIDATE_LIB_BY_LANG = {
    * Validates the python Epsagon's library
    */
   python() {
-    this.log('You have some Python Lambda functions. Please make sure Epsagon\'s Python library' +
-      ' is installed.');
+    this.log('Python functions found, please make sure to install the Epsagon Python library.');
   },
   /**
    * Validates the node Epsagon's library
@@ -85,6 +84,7 @@ export default class ServerlessEpsagonPlugin {
       'after:invoke:local:invoke': this.cleanup.bind(this),
       'epsagon:clean:init': this.cleanup.bind(this),
       'epsagon:run:init': this.run.bind(this),
+      'after:deploy:deploy': this.link.bind(this),
     };
   }
 
@@ -95,6 +95,13 @@ export default class ServerlessEpsagonPlugin {
    */
   log(format, ...args) {
     this.sls.cli.log(`[serverless-plugin-epsagon] ${format}`, ...args);
+  }
+
+  /**
+   * prints a link to the Epsagon functions page.
+   */
+  async link() {
+    this.log('Monitor and troubleshoot your functions at \u001B[4mhttps://app.epsagon.com/functions\u001B[24m');
   }
 
   /**
