@@ -18,15 +18,14 @@ const WRAPPER_CODE = ({
 }) => {
   const commonNode = `
 
-${urlsToIgnore ? `process.env.EPSAGON_URLS_TO_IGNORE = process.env.EPSAGON_URLS_TO_IGNORE || '${urlsToIgnore}';` : ''} 
-${ignoredKeys ? `process.env.EPSAGON_IGNORED_KEYS = process.env.EPSAGON_IGNORED_KEYS || '${ignoredKeys}';` : ''} 
-
 epsagon.init({
     token: '${token}',
     appName: '${appName}',
     traceCollectorURL: ${collectorUrl},
     metadataOnly: Boolean(${metadataOnly}),
-    labels: ${labels || '[]'}
+    labels: ${labels || '[]'},
+    urlPatternsToIgnore: ${urlsToIgnore ? "['".concat(urlsToIgnore.replace(',', "', '")).concat("']") : '[]'},
+    ignoredKeys: ${ignoredKeys ? "['".concat(ignoredKeys.replace(',', "', '")).concat("']") : '[]'},
 });`;
 
   return ({
