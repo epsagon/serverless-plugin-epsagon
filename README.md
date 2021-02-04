@@ -180,7 +180,7 @@ functions:
 ```
 
 ### [Node.js] `Epsagon's Node library must be installed in order to use this plugin!` error:
-The plugin verifies that `epsagon` module exists on your `./package.json` before deployment.
+The plugin verifies that `epsagon` module exists in your `dependencies` section of your `./package.json` before deployment.
 In some cases, the `package.json` might be in a different path. You can easily update it using `packageJsonPath` parameter, for example:
 ```yaml
 custom:
