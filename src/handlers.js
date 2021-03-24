@@ -23,7 +23,7 @@ const WRAPPER_CODE = ({
   }
 
   if (!process.env.EPSAGON_URLS_TO_IGNORE) {
-    process.env.EPSAGON_IGNORED_KEYS = "${urlsToIgnore || ''}";
+    process.env.EPSAGON_URLS_TO_IGNORE = "${urlsToIgnore || ''}";
   }
 
 epsagon.init({
