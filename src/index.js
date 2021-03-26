@@ -74,6 +74,51 @@ export default class ServerlessEpsagonPlugin {
       },
     };
 
+    // Added: Schema based validation of service config
+    // https://github.com/serverless/serverless/releases/tag/v1.78.0
+    if (this.sls.configSchemaHandler) {
+      const newCustomPropSchema = {
+        type: 'object',
+        properties: {
+          epsagon: {
+            type: 'object',
+            properties: {
+              token: { type: 'string' },
+              appName: { type: 'string' },
+              disable: { type: 'boolean' },
+              metadataOnly: { type: 'boolean' },
+              handlersDirName: { type: 'string' },
+              packageJsonPath: { type: 'string' },
+              collectorURL: { type: 'string' },
+              ignoredKeys: { type: 'string' },
+              urlsToIgnore: { type: 'string' },
+              labels: { type: 'string' },
+            },
+            additionalProperties: false,
+          },
+        },
+      };
+      this.sls.configSchemaHandler.defineCustomProperties(newCustomPropSchema);
+
+      // Added: defineFunctionProperties schema extension method
+      // https://github.com/serverless/serverless/releases/tag/v2.10.0
+      if (this.sls.configSchemaHandler.defineFunctionProperties) {
+        this.sls.configSchemaHandler.defineFunctionProperties('aws', {
+          properties: {
+            epsagon: {
+              type: 'object',
+              properties: {
+                appName: { type: 'string' },
+                disable: { type: 'boolean' },
+                wrapper: { type: 'string' },
+              },
+              additionalProperties: false,
+            },
+          },
+        });
+      }
+    }
+
     this.hooks = {
       'after:package:initialize': this.run.bind(this),
       'before:deploy:function:packageFunction': this.run.bind(this),
