@@ -102,7 +102,7 @@ Available options:
 |`ignoredKeys`    |Optional          |`-`               |May contain strings (will perform a loose match, so that First Name also matches first_name)                                                  |
 |`urlsToIgnore`   |Optional          |`-`               |Ignore HTTP calls to specific domains                                                                                                         |
 |`labels`         |Optional          |`[]`              |Global labels applied to all traces. For example "[['key', 'val']]". (Not available for Python)                                                                                |
-|`wrapper`|Optional          |`lambda_wrapper/lambdaWrapper` - The wrapper to use to wrap this function. See [wrappers](#wrappers)|                                                       |
+|`wrapper`|Optional          |`lambda_wrapper/lambdaWrapper` | The wrapper to use to wrap this function. See [wrappers](#wrappers)|                                                       |
 
 ### Function Level Options
 These options are defined at the function level, under the `epsagon` member of your function in the `serverless.yml` file.
@@ -124,7 +124,7 @@ Available options:
 |---------|------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
 |`disable`|Optional          | `false`                                                                                            | When set to true it disables Epsagon for the function.|
 |`appName`|Optional          | ``                                                                                                 |Application name that will be set for traces           |
-|`wrapper`|Optional          |`lambda_wrapper/lambdaWrapper` - The wrapper to use to wrap this function. See [wrappers](#wrappers)|                                                       |
+|`wrapper`|Optional          |`lambda_wrapper/lambdaWrapper` | The wrapper to use to wrap this function. See [wrappers](#wrappers)|                                                       |
 
 
 #### wrappers
