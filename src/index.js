@@ -93,6 +93,7 @@ export default class ServerlessEpsagonPlugin {
               ignoredKeys: { type: 'string' },
               urlsToIgnore: { type: 'string' },
               labels: { type: 'string' },
+              wrapper: { type: 'string' },
             },
             additionalProperties: false,
           },
@@ -221,7 +222,7 @@ export default class ServerlessEpsagonPlugin {
           return result;
         }
 
-        const language = SUPPORTED_LANGUAGES.find((lang => runtime.match(lang)));
+        const language = SUPPORTED_LANGUAGES.find((lang => runtime.toLowerCase().match(lang)));
         if (!language) {
           this.log(`Runtime "${runtime}" is not supported yet, skipping function ${key}`);
           return result;
@@ -254,6 +255,14 @@ export default class ServerlessEpsagonPlugin {
       }
     }
     await Promise.all(this.funcs.map(async (func) => {
+      if (this.config().wrapper) {
+        if (!func.epsagon) {
+          // eslint-disable-next-line no-param-reassign
+          func.epsagon = {};
+        }
+        // eslint-disable-next-line no-param-reassign
+        func.epsagon.wrapper = this.config().wrapper;
+      }
       const handlerCode = generateWrapperCode(func, this.config());
       await writeFile(
         join(
