@@ -263,7 +263,10 @@ export default class ServerlessEpsagonPlugin {
         // eslint-disable-next-line no-param-reassign
         func.epsagon.wrapper = this.config().wrapper;
       }
-      const handlerCode = generateWrapperCode(func, this.config());
+
+      const handlerCode = generateWrapperCode(func, this.config({
+        funcName: func.key,
+      }));
       await writeFile(
         join(
           handlersFullDirPath,
@@ -303,11 +306,17 @@ export default class ServerlessEpsagonPlugin {
    * Gets the plugin config.
    * @returns {Object} The config object
    */
-  config() {
-    return Object.assign({
+  config({ funcName = '' } = {}) {
+    const funcs = this.sls.service.functions || {};
+    const funcConfig = (funcs[funcName] || {}).epsagon || {};
+    const epsagonConfig = (this.sls.service.custom || {}).epsagon || {};
+
+    return {
       metadataOnly: 'false',
       handlersDirName: 'epsagon_handlers',
-    }, (this.sls.service.custom || {}).epsagon || {});
+      ...epsagonConfig,
+      ...funcConfig,
+    };
   }
 
   /**
