@@ -92,6 +92,7 @@ export default class ServerlessEpsagonPlugin {
               collectorURL: { type: 'string' },
               ignoredKeys: { type: 'string' },
               urlsToIgnore: { type: 'string' },
+              payloadsToIgnore: { type: 'array' },
               labels: { type: 'string' },
               wrapper: { type: 'string' },
             },

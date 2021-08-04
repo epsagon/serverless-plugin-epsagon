@@ -13,17 +13,21 @@ const WRAPPER_CODE = ({
   collectorUrl,
   metadataOnly,
   urlsToIgnore,
+  payloadsToIgnore,
   ignoredKeys,
   labels,
 }) => {
   const commonNode = `
-
   if (!process.env.EPSAGON_IGNORED_KEYS) {
     process.env.EPSAGON_IGNORED_KEYS = "${ignoredKeys || ''}";
   }
 
   if (!process.env.EPSAGON_URLS_TO_IGNORE) {
     process.env.EPSAGON_URLS_TO_IGNORE = "${urlsToIgnore || ''}";
+  }
+  
+  if (!process.env.EPSAGON_PAYLOADS_TO_IGNORE) {
+    process.env.EPSAGON_PAYLOADS_TO_IGNORE = "${payloadsToIgnore || ''}";
   }
 
 epsagon.init({
@@ -44,6 +48,7 @@ try:
         
     ${urlsToIgnore ? `os.environ['EPSAGON_URLS_TO_IGNORE'] = '${urlsToIgnore}' if 'EPSAGON_URLS_TO_IGNORE' not in os.environ else os.environ['EPSAGON_URLS_TO_IGNORE']` : ''}
     ${ignoredKeys ? `os.environ['EPSAGON_IGNORED_KEYS'] = '${ignoredKeys}' if 'EPSAGON_IGNORED_KEYS' not in os.environ else os.environ['EPSAGON_IGNORED_KEYS']` : ''}
+    ${payloadsToIgnore ? `os.environ['EPSAGON_PAYLOADS_TO_IGNORE'] = '${payloadsToIgnore}' if 'EPSAGON_PAYLOADS_TO_IGNORE' not in os.environ else os.environ['EPSAGON_PAYLOADS_TO_IGNORE']` : ''}
     
     null = None  # used to ignore arguments
     undefined = None  # used to ignore arguments
@@ -96,7 +101,7 @@ export function generateWrapperCode(
   epsagonConf
 ) {
   const {
-    collectorURL, token, appName, metadataOnly, urlsToIgnore, ignoredKeys, labels,
+    collectorURL, token, appName, metadataOnly, urlsToIgnore, payloadsToIgnore, ignoredKeys, labels,
   } = epsagonConf;
   const { wrapper = DEFAULT_WRAPPERS[func.language] } = (func.epsagon || {});
 
@@ -106,6 +111,7 @@ export function generateWrapperCode(
       func.relativePath
   );
   const labelsFormatted = typeof labels === 'object' ? JSON.stringify(labels) : labels;
+  const ignoredKeysFormatted = typeof payloadsToIgnore === 'object' ? JSON.stringify(payloadsToIgnore) : payloadsToIgnore;
 
   return WRAPPER_CODE({
     relativePath,
@@ -116,6 +122,7 @@ export function generateWrapperCode(
     collectorUrl: collectorURL ? `'${collectorURL}'` : undefined,
     metadataOnly: metadataOnly === true ? '1' : '0',
     urlsToIgnore,
+    payloadsToIgnore: ignoredKeysFormatted,
     ignoredKeys,
     labels: labelsFormatted,
   })[func.language];
