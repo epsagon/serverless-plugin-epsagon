@@ -27,7 +27,7 @@ const WRAPPER_CODE = ({
   }
   
   if (!process.env.EPSAGON_PAYLOADS_TO_IGNORE) {
-    process.env.EPSAGON_PAYLOADS_TO_IGNORE = "${payloadsToIgnore || ''}";
+    process.env.EPSAGON_PAYLOADS_TO_IGNORE = '${payloadsToIgnore}';
   }
 
 epsagon.init({
@@ -111,7 +111,7 @@ export function generateWrapperCode(
       func.relativePath
   );
   const labelsFormatted = typeof labels === 'object' ? JSON.stringify(labels) : labels;
-  const ignoredKeysFormatted = typeof payloadsToIgnore === 'object' ? JSON.stringify(payloadsToIgnore) : payloadsToIgnore;
+  const ignoredKeysFormatted = typeof payloadsToIgnore === 'object' ? JSON.stringify(payloadsToIgnore) : '';
 
   return WRAPPER_CODE({
     relativePath,
