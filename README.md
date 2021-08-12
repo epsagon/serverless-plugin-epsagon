@@ -101,7 +101,7 @@ Available options:
 |`collectorURL`   |Optional          |`-`               |The address of the trace collector to send trace to                                                                                           |
 |`ignoredKeys`    |Optional          |`-`               |May contain strings (will perform a loose match, so that First Name also matches first_name)                                                  |
 |`urlsToIgnore`   |Optional          |`-`               |Ignore HTTP calls to specific domains                                                                                                         |
-|`payloadsToIgnore` |Optional          |`-`               | Array of dictionaries to not instrument. Example: `'{"source": "serverless-plugin-warmup"}'` (Not yet available for Node)                                                                                                   |
+|`payloadsToIgnore` |Optional          |`-`               | Array of dictionaries to not instrument. Example: `'{"source": "serverless-plugin-warmup"}'`                                                                                                   |
 |`labels`         |Optional          |`[]`              |Global labels applied to all traces. For example "[['key', 'val']]". (Not available for Python)                                                                                |
 |`wrapper`|Optional          |`lambda_wrapper/lambdaWrapper` | The wrapper to use to wrap this function. See [wrappers](#wrappers)|                                                       |
 
