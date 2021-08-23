@@ -28,9 +28,9 @@
   "author": "Epsagon Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/epsagon/serverless-plugin-espagon/issues"
+    "url": "https://github.com/epsagon/serverless-plugin-epsagon/issues"
   },
-  "homepage": "https://github.com/epsagon/serverless-plugin-espagon#readme",
+  "homepage": "https://github.com/epsagon/serverless-plugin-epsagon#readme",
   "files": [
     "dist"
   ],
