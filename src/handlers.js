@@ -18,18 +18,6 @@ const WRAPPER_CODE = ({
   labels,
 }) => {
   const commonNode = `
-  if (!process.env.EPSAGON_IGNORED_KEYS) {
-    process.env.EPSAGON_IGNORED_KEYS = "${ignoredKeys || ''}";
-  }
-
-  if (!process.env.EPSAGON_URLS_TO_IGNORE) {
-    process.env.EPSAGON_URLS_TO_IGNORE = "${urlsToIgnore || ''}";
-  }
-  
-  if (!process.env.EPSAGON_PAYLOADS_TO_IGNORE) {
-    process.env.EPSAGON_PAYLOADS_TO_IGNORE = '${payloadsToIgnore}';
-  }
-
 epsagon.init({
     token: '${token}',
     appName: '${appName}',
@@ -64,6 +52,18 @@ except:
     print('Warning: Epsagon package not found. The function will not be monitored')
 `,
     node: `
+if (!process.env.EPSAGON_IGNORED_KEYS) {
+  process.env.EPSAGON_IGNORED_KEYS = "${ignoredKeys || ''}";
+}
+
+if (!process.env.EPSAGON_URLS_TO_IGNORE) {
+  process.env.EPSAGON_URLS_TO_IGNORE = "${urlsToIgnore || ''}";
+}
+
+if (!process.env.EPSAGON_PAYLOADS_TO_IGNORE) {
+  process.env.EPSAGON_PAYLOADS_TO_IGNORE = '${payloadsToIgnore}';
+}
+
 const epsagon = require('epsagon');
 const epsagonHandler = require('../${relativePath}.js');
 
@@ -72,6 +72,18 @@ ${commonNode}
 exports.${method} = epsagon.${wrapper}(epsagonHandler.${method});
 `,
     tsnode: `
+if (!process.env.EPSAGON_IGNORED_KEYS) {
+  process.env.EPSAGON_IGNORED_KEYS = "${ignoredKeys || ''}";
+}
+
+if (!process.env.EPSAGON_URLS_TO_IGNORE) {
+  process.env.EPSAGON_URLS_TO_IGNORE = "${urlsToIgnore || ''}";
+}
+
+if (!process.env.EPSAGON_PAYLOADS_TO_IGNORE) {
+  process.env.EPSAGON_PAYLOADS_TO_IGNORE = '${payloadsToIgnore}';
+}
+
 import * as epsagon from 'epsagon';
 import * as epsagonHandler from '../${relativePath}';
 
