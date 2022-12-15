@@ -192,7 +192,7 @@ export default class ServerlessEpsagonPlugin {
       const matchingFiles = glob.sync(`${relativePath}.*`);
       if (
         matchingFiles.length > 0 &&
-           (matchingFiles[0].endsWith('.ts') ||
+           ((matchingFiles[0].endsWith('.ts') && (!matchingFiles[0].endsWith('d.ts'))) ||
             matchingFiles[0].endsWith('.tsx'))
       ) {
         // This is a good enough test for now. lets treat it as TS.
